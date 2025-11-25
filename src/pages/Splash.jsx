@@ -13,16 +13,86 @@ const Splash = () => {
     return () => clearTimeout(timer);
   }, [navigate]);
 
-  const logoBase64 = "data:image/webp;base64,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";
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary-cream via-ui-bg to-primary-light flex items-center justify-center">
-      <div className="animate-fade-in">
-        <img
-          src={logoBase64}
-          alt="TimeShare Logo"
-          className="w-64 h-64 md:w-80 md:h-80 object-contain drop-shadow-2xl animate-pulse-slow"
-        />
+      <div className="animate-fade-in flex flex-col items-center">
+        {/* SVG 로고 */}
+        <svg
+          width="280"
+          height="280"
+          viewBox="0 0 280 280"
+          className="drop-shadow-2xl animate-pulse-slow"
+        >
+          {/* 배경 원 */}
+          <circle cx="140" cy="140" r="120" fill="#F5E6D3" />
+
+          {/* 순환 화살표 1 (상단) */}
+          <path
+            d="M 140 40 A 100 100 0 0 1 220 140"
+            fill="none"
+            stroke="#C9965F"
+            strokeWidth="8"
+            strokeLinecap="round"
+          />
+          <polygon
+            points="225,145 215,135 205,145"
+            fill="#C9965F"
+          />
+
+          {/* 순환 화살표 2 (하단) */}
+          <path
+            d="M 140 240 A 100 100 0 0 1 60 140"
+            fill="none"
+            stroke="#B8824A"
+            strokeWidth="8"
+            strokeLinecap="round"
+          />
+          <polygon
+            points="55,135 65,145 75,135"
+            fill="#B8824A"
+          />
+
+          {/* 시계 외부 원 */}
+          <circle cx="140" cy="140" r="60" fill="white" stroke="#C9965F" strokeWidth="4" />
+
+          {/* 시계 숫자 표시 (12, 3, 6, 9) */}
+          <circle cx="140" cy="90" r="3" fill="#C9965F" />
+          <circle cx="190" cy="140" r="3" fill="#C9965F" />
+          <circle cx="140" cy="190" r="3" fill="#C9965F" />
+          <circle cx="90" cy="140" r="3" fill="#C9965F" />
+
+          {/* 시침 */}
+          <line
+            x1="140"
+            y1="140"
+            x2="140"
+            y2="115"
+            stroke="#B8824A"
+            strokeWidth="6"
+            strokeLinecap="round"
+          />
+
+          {/* 분침 */}
+          <line
+            x1="140"
+            y1="140"
+            x2="165"
+            y2="115"
+            stroke="#C9965F"
+            strokeWidth="4"
+            strokeLinecap="round"
+          />
+
+          {/* 중심점 */}
+          <circle cx="140" cy="140" r="6" fill="#C9965F" />
+        </svg>
+
+        {/* TimeShare 텍스트 */}
+        <div className="mt-6">
+          <h1 className="text-5xl font-bold text-primary-main tracking-wide">
+            TimeShare
+          </h1>
+        </div>
       </div>
 
       <style jsx>{`
