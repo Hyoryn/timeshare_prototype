@@ -41,7 +41,7 @@ const TalentVerification = () => {
     <div className={`min-h-screen pb-24 ${isSeniorMode ? 'senior-mode' : 'youth-mode'}`}>
       <Header title="재능 인증" showBack />
 
-      <div className="max-w-screen-xl mx-auto px-4 py-6">
+      <div className="max-w-md mx-auto px-4 py-6">
         {/* 안내 */}
         <Card className={`bg-blue-50 border-blue-200 ${isSeniorMode ? 'mb-6' : 'mb-4'}`}>
           <div className="flex items-start gap-3">

@@ -30,34 +30,29 @@ const Home = () => {
   const timeProgress = (currentUser.ownedTime / 50) * 100;
 
   return (
-    <div className={`min-h-screen pb-24 ${isSeniorMode ? 'youth-mode' : 'senior-mode'}`}>
+    <div className={`min-h-screen pb-24 ${isSeniorMode ? 'senior-mode' : 'youth-mode'}`}>
       {/* 헤더 */}
       <header className="bg-ui-card border-b border-ui-border sticky top-0 z-50">
-        <div className={`max-w-screen-xl mx-auto px-4 ${isSeniorMode ? 'py-5' : 'py-4'}`}>
+        <div className={`max-w-md mx-auto px-4 ${isSeniorMode ? 'py-5' : 'py-4'}`}>
           <div className="flex items-center justify-between mb-3">
             <h1 className={`font-bold text-primary-main ${isSeniorMode ? 'text-3xl' : 'text-2xl'}`}>
               TimeShare
             </h1>
-            <div className="flex items-center gap-3">
-              <select
-                value={selectedRegion}
-                onChange={(e) => setSelectedRegion(e.target.value)}
-                className={`${isSeniorMode ? 'px-4 py-3 text-lg' : 'px-3 py-2 text-sm'} border border-ui-border rounded-lg bg-ui-card`}
-              >
-                {regions.map(region => (
-                  <option key={region} value={region}>{region}</option>
-                ))}
-              </select>
-              <button
-                onClick={() => navigate('/notifications')}
-                className={`relative ${isSeniorMode ? 'p-3 text-2xl' : 'p-2 text-xl'}`}
-              >
-                🔔
-                <span className="absolute top-0 right-0 w-3 h-3 bg-red-500 rounded-full"></span>
-              </button>
+            <div className="flex items-center gap-2">
+              {!isSeniorMode && (
+                <select
+                  value={selectedRegion}
+                  onChange={(e) => setSelectedRegion(e.target.value)}
+                  className="px-3 py-2 text-sm border border-ui-border rounded-lg bg-ui-card"
+                >
+                  {regions.map(region => (
+                    <option key={region} value={region}>{region}</option>
+                  ))}
+                </select>
+              )}
               <button
                 onClick={() => switchMode(mode === 'youth' ? 'senior' : 'youth')}
-                className={`${isSeniorMode ? 'px-4 py-3 text-base' : 'px-3 py-2 text-sm'} bg-primary-cream text-primary-main rounded-lg hover:bg-primary-light transition-colors font-medium`}
+                className={`${isSeniorMode ? 'px-4 py-3 text-base' : 'px-3 py-2 text-sm'} bg-primary-cream text-primary-main rounded-lg hover:bg-primary-light transition-colors font-medium whitespace-nowrap`}
               >
                 {mode === 'youth' ? '시니어' : '청년'}
               </button>
@@ -66,57 +61,69 @@ const Home = () => {
         </div>
       </header>
 
-      <div className="max-w-screen-xl mx-auto px-4 py-6">
+      <div className="max-w-md mx-auto px-4 py-6">
         {/* 사용자 타임 정보 카드 */}
-        <Card className={isSeniorMode ? 'mb-6' : 'mb-4'}>
-          <div className="flex items-center justify-between mb-4">
-            <div>
-              <h2 className={`font-bold mb-1 ${isSeniorMode ? 'text-2xl' : 'text-xl'}`}>
-                내 타임
-              </h2>
-              <p className={`text-primary-main font-bold ${isSeniorMode ? 'text-3xl' : 'text-2xl'}`}>
-                {currentUser.ownedTime} 타임
+        {isSeniorMode ? (
+          // 시니어 모드 - 단순화
+          <Card className="mb-6">
+            <div className="text-center">
+              <h2 className="font-bold text-xl mb-3">내 타임</h2>
+              <p className="text-primary-main font-bold text-5xl mb-4">
+                {currentUser.ownedTime}
               </p>
+              <div className="bg-primary-cream rounded-lg p-4">
+                <p className="text-base text-ui-textSecondary mb-1">오늘 사용 가능</p>
+                <p className="font-bold text-2xl">
+                  {currentUser.todayLimit - currentUser.todayUsed}시간
+                </p>
+              </div>
             </div>
-            <div className="text-right">
-              <p className={`text-ui-textSecondary ${isSeniorMode ? 'text-lg' : 'text-sm'} mb-1`}>
-                오늘 사용 가능
-              </p>
-              <p className={`font-bold ${isSeniorMode ? 'text-2xl' : 'text-xl'}`}>
-                {currentUser.todayLimit - currentUser.todayUsed} / {currentUser.todayLimit} 시간
-              </p>
+          </Card>
+        ) : (
+          // 청년 모드 - 상세 정보
+          <Card className="mb-4">
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <h2 className="font-bold text-xl mb-1">내 타임</h2>
+                <p className="text-primary-main font-bold text-2xl">
+                  {currentUser.ownedTime} 타임
+                </p>
+              </div>
+              <div className="text-right">
+                <p className="text-ui-textSecondary text-sm mb-1">오늘 사용 가능</p>
+                <p className="font-bold text-xl">
+                  {currentUser.todayLimit - currentUser.todayUsed} / {currentUser.todayLimit} 시간
+                </p>
+              </div>
             </div>
-          </div>
+            {/* 프로그레스 바 */}
+            <div className="mb-3">
+              <div className="flex justify-between mb-2">
+                <span className="text-sm text-ui-textSecondary">타임 획득 진행률</span>
+                <span className="text-sm text-ui-textSecondary">{timeProgress.toFixed(0)}%</span>
+              </div>
+              <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+                <div
+                  className="bg-gradient-to-r from-primary-main to-primary-accent h-full rounded-full transition-all duration-500"
+                  style={{ width: `${timeProgress}%` }}
+                ></div>
+              </div>
+            </div>
+          </Card>
+        )}
 
-          {/* 프로그레스 바 */}
-          <div className="mb-3">
-            <div className="flex justify-between mb-2">
-              <span className={`${isSeniorMode ? 'text-base' : 'text-sm'} text-ui-textSecondary`}>
-                타임 획득 진행률
-              </span>
-              <span className={`${isSeniorMode ? 'text-base' : 'text-sm'} text-ui-textSecondary`}>
-                {timeProgress.toFixed(0)}%
-              </span>
-            </div>
-            <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
-              <div
-                className="bg-gradient-to-r from-primary-main to-primary-accent h-full rounded-full transition-all duration-500"
-                style={{ width: `${timeProgress}%` }}
-              ></div>
-            </div>
+        {/* 검색바 - 청년 모드만 */}
+        {!isSeniorMode && (
+          <div className="mb-4">
+            <input
+              type="text"
+              placeholder="무엇을 찾으시나요?"
+              value={searchKeyword}
+              onChange={(e) => setSearchKeyword(e.target.value)}
+              className="w-full px-4 py-3 text-base border border-ui-border rounded-xl bg-ui-card focus:outline-none focus:border-primary-main transition-colors"
+            />
           </div>
-        </Card>
-
-        {/* 검색바 */}
-        <div className={isSeniorMode ? 'mb-6' : 'mb-4'}>
-          <input
-            type="text"
-            placeholder="무엇을 찾으시나요?"
-            value={searchKeyword}
-            onChange={(e) => setSearchKeyword(e.target.value)}
-            className={`w-full ${isSeniorMode ? 'px-5 py-4 text-lg' : 'px-4 py-3 text-base'} border border-ui-border rounded-xl bg-ui-card focus:outline-none focus:border-primary-main transition-colors`}
-          />
-        </div>
+        )}
 
         {/* 카테고리 탭 */}
         <div className={`flex gap-2 overflow-x-auto pb-3 ${isSeniorMode ? 'mb-6' : 'mb-4'}`}>
@@ -164,35 +171,35 @@ const Home = () => {
 
       {/* 하단 네비게이션 */}
       <nav className="fixed bottom-0 left-0 right-0 bg-ui-card border-t border-ui-border z-50">
-        <div className="max-w-screen-xl mx-auto px-4 py-3">
+        <div className="max-w-md mx-auto px-4 py-3">
           <div className="grid grid-cols-4 gap-2">
             <button
               onClick={() => navigate('/')}
-              className={`flex flex-col items-center justify-center ${isSeniorMode ? 'py-3' : 'py-2'} text-primary-main`}
+              className={`flex flex-col items-center justify-center ${isSeniorMode ? 'py-4' : 'py-2'} text-primary-main transition-colors`}
             >
-              <span className={isSeniorMode ? 'text-2xl mb-1' : 'text-xl mb-1'}>🏠</span>
-              <span className={`${isSeniorMode ? 'text-base' : 'text-xs'} font-medium`}>홈</span>
+              <span className={isSeniorMode ? 'text-3xl mb-2' : 'text-xl mb-1'}>🏠</span>
+              <span className={`${isSeniorMode ? 'text-lg' : 'text-xs'} font-medium`}>홈</span>
             </button>
             <button
               onClick={() => navigate('/create')}
-              className={`flex flex-col items-center justify-center ${isSeniorMode ? 'py-3' : 'py-2'} text-ui-textSecondary hover:text-primary-main`}
+              className={`flex flex-col items-center justify-center ${isSeniorMode ? 'py-4' : 'py-2'} text-ui-textSecondary hover:text-primary-main transition-colors`}
             >
-              <span className={isSeniorMode ? 'text-2xl mb-1' : 'text-xl mb-1'}>✏️</span>
-              <span className={`${isSeniorMode ? 'text-base' : 'text-xs'} font-medium`}>작성</span>
+              <span className={isSeniorMode ? 'text-3xl mb-2' : 'text-xl mb-1'}>✏️</span>
+              <span className={`${isSeniorMode ? 'text-lg' : 'text-xs'} font-medium`}>작성</span>
             </button>
             <button
               onClick={() => navigate('/matching')}
-              className={`flex flex-col items-center justify-center ${isSeniorMode ? 'py-3' : 'py-2'} text-ui-textSecondary hover:text-primary-main`}
+              className={`flex flex-col items-center justify-center ${isSeniorMode ? 'py-4' : 'py-2'} text-ui-textSecondary hover:text-primary-main transition-colors`}
             >
-              <span className={isSeniorMode ? 'text-2xl mb-1' : 'text-xl mb-1'}>💬</span>
-              <span className={`${isSeniorMode ? 'text-base' : 'text-xs'} font-medium`}>매칭</span>
+              <span className={isSeniorMode ? 'text-3xl mb-2' : 'text-xl mb-1'}>💬</span>
+              <span className={`${isSeniorMode ? 'text-lg' : 'text-xs'} font-medium`}>매칭</span>
             </button>
             <button
               onClick={() => navigate('/mypage')}
-              className={`flex flex-col items-center justify-center ${isSeniorMode ? 'py-3' : 'py-2'} text-ui-textSecondary hover:text-primary-main`}
+              className={`flex flex-col items-center justify-center ${isSeniorMode ? 'py-4' : 'py-2'} text-ui-textSecondary hover:text-primary-main transition-colors`}
             >
-              <span className={isSeniorMode ? 'text-2xl mb-1' : 'text-xl mb-1'}>👤</span>
-              <span className={`${isSeniorMode ? 'text-base' : 'text-xs'} font-medium`}>MY</span>
+              <span className={isSeniorMode ? 'text-3xl mb-2' : 'text-xl mb-1'}>👤</span>
+              <span className={`${isSeniorMode ? 'text-lg' : 'text-xs'} font-medium`}>MY</span>
             </button>
           </div>
         </div>

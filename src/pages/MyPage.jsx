@@ -11,15 +11,15 @@ const MyPage = () => {
 
   if (!currentUser) return null;
 
-  const conversionRate = 1000; // 1타임 = 1,000원
+  const conversionRate = 8333.33; // 1타임 = 8,333.33원 (15타임 = 125,000원)
   const convertibleTime = Math.floor(currentUser.ownedTime / 15) * 15; // 15타임 단위로만 전환 가능
-  const convertibleMoney = convertibleTime * conversionRate;
+  const convertibleMoney = Math.floor(convertibleTime * conversionRate);
 
   return (
     <div className={`min-h-screen pb-24 ${isSeniorMode ? 'senior-mode' : 'youth-mode'}`}>
       <Header title="마이페이지" showBack={false} />
 
-      <div className="max-w-screen-xl mx-auto px-4 py-6">
+      <div className="max-w-md mx-auto px-4 py-6">
         {/* 프로필 영역 */}
         <Card className={isSeniorMode ? 'mb-6' : 'mb-4'}>
           <div className="flex items-center gap-4 mb-4">

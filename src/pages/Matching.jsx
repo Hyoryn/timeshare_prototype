@@ -58,7 +58,7 @@ const Matching = () => {
     <div className={`min-h-screen pb-24 ${isSeniorMode ? 'senior-mode' : 'youth-mode'}`}>
       <Header title="매칭" showBack />
 
-      <div className="max-w-screen-xl mx-auto px-4 py-6">
+      <div className="max-w-md mx-auto px-4 py-6">
         {/* AI 분석 중 */}
         {step === 'analyzing' && (
           <Card className="text-center py-12">

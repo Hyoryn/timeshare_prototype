@@ -67,7 +67,7 @@ const CreatePost = () => {
     <div className={`min-h-screen pb-24 ${isSeniorMode ? 'senior-mode' : 'youth-mode'}`}>
       <Header title="게시글 작성" showBack />
 
-      <div className="max-w-screen-xl mx-auto px-4 py-6">
+      <div className="max-w-md mx-auto px-4 py-6">
         <form onSubmit={handleSubmit}>
           {/* 제공/요청 선택 */}
           <Card className={isSeniorMode ? 'mb-6' : 'mb-4'}>

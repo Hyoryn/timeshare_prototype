@@ -1,19 +1,14 @@
 import { useNavigate } from 'react-router-dom';
 import { useMode } from '../context/ModeContext';
-import { users } from '../data/users';
 
 const ModeSelection = () => {
-  const { switchMode, updateUser } = useMode();
+  const { switchMode } = useMode();
   const navigate = useNavigate();
 
   const handleModeSelect = (selectedMode) => {
     switchMode(selectedMode);
-    // 더미 사용자 설정 (청년 모드면 첫 번째 청년, 시니어 모드면 첫 번째 시니어)
-    const dummyUser = selectedMode === 'youth'
-      ? users.find(u => u.generation === 'youth')
-      : users.find(u => u.generation === 'senior');
-    updateUser(dummyUser);
-    navigate('/');
+    // 회원가입 페이지로 이동
+    navigate('/signup');
   };
 
   return (

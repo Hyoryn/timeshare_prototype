@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ModeProvider, useMode } from './context/ModeContext';
 import ModeSelection from './pages/ModeSelection';
+import SignUp from './pages/SignUp';
 import Home from './pages/Home';
 import CreatePost from './pages/CreatePost';
 import PostDetail from './pages/PostDetail';
@@ -20,6 +21,7 @@ const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/select-mode" element={<ModeSelection />} />
+      <Route path="/signup" element={<SignUp />} />
       <Route
         path="/"
         element={
