@@ -1,0 +1,48 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-sans bg-ui-bg text-ui-text;
+    margin: 0;
+    min-width: 320px;
+    min-height: 100vh;
+  }
+}
+
+@layer components {
+  .youth-mode {
+    font-size: 14px;
+  }
+
+  .senior-mode {
+    font-size: 18px;
+  }
+
+  .youth-mode h1 {
+    font-size: 24px;
+  }
+
+  .senior-mode h1 {
+    font-size: 28px;
+  }
+
+  .youth-mode h2 {
+    font-size: 18px;
+  }
+
+  .senior-mode h2 {
+    font-size: 24px;
+  }
+
+  .youth-mode button {
+    min-height: 44px;
+  }
+
+  .senior-mode button {
+    min-height: 56px;
+  }
+}
