@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ModeProvider, useMode } from './context/ModeContext';
+import Splash from './pages/Splash';
 import ModeSelection from './pages/ModeSelection';
 import SignUp from './pages/SignUp';
 import Home from './pages/Home';
@@ -12,18 +13,21 @@ import Matching from './pages/Matching';
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
-  const { mode } = useMode();
-  return mode ? children : <Navigate to="/select-mode" replace />;
+  const { mode, currentUser } = useMode();
+  if (!mode) return <Navigate to="/select-mode" replace />;
+  if (!currentUser) return <Navigate to="/signup" replace />;
+  return children;
 };
 
 // App Routes Component
 const AppRoutes = () => {
   return (
     <Routes>
+      <Route path="/" element={<Splash />} />
       <Route path="/select-mode" element={<ModeSelection />} />
       <Route path="/signup" element={<SignUp />} />
       <Route
-        path="/"
+        path="/home"
         element={
           <ProtectedRoute>
             <Home />

@@ -174,7 +174,7 @@ const Home = () => {
         <div className="max-w-md mx-auto px-4 py-3">
           <div className="grid grid-cols-4 gap-2">
             <button
-              onClick={() => navigate('/')}
+              onClick={() => navigate('/home')}
               className={`flex flex-col items-center justify-center ${isSeniorMode ? 'py-4' : 'py-2'} text-primary-main transition-colors`}
             >
               <span className={isSeniorMode ? 'text-3xl mb-2' : 'text-xl mb-1'}>🏠</span>

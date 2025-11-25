@@ -71,7 +71,7 @@ const SignUp = () => {
     };
 
     updateUser(newUser);
-    navigate('/');
+    navigate('/home');
   };
 
   return (
